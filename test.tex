@@ -1,0 +1,248 @@
+
+\documentclass[dvipdfmx,cjk]{beamer} %% オプションは環境や利用するプログラムに
+%\documentclass[dvips,cjk]{beamer} %% よって変える
+\AtBeginDvi{\special{pdf:tounicode 90ms-RKSJ-UCS2}}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{txfonts}
+\usepackage{ascmac}
+\usepackage{comment}
+\usepackage{amsrefs}
+\usepackage{pifont}
+\usepackage{ascmac}
+\usepackage{graphicx}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{pxjahyper}% 日本語で'しおり'したい
+\usepackage{minijs}% min10ヤダ
+
+\usefonttheme{professionalfonts} %% 数式の文字を通常の LaTeX と同じにする
+
+%\setbeamercovered{transparent} %% 消えている文字をうっすらと表示する
+
+ %% 定理に番号をつける
+\newtheorem{thm}{定理}
+\newtheorem{dfn}[thm]{定義}
+\newtheorem{proposition}[thm]{命題}
+\newtheorem{purpose}[thm]{研究目的}
+\theoremstyle{example}
+\newtheorem{exam}[thm]{例}
+\newtheorem{exam2}[thm]{例のつづき}
+\newtheorem{remark}[thm]{Remark}
+\newtheorem{question}[thm]{Question}
+\newtheorem{prob}[thm]{}
+\newtheorem{suppose}[thm]{仮定}
+\newtheorem{hope}[thm]{今後の展望}
+\newtheorem{pf}[thm]{証明}
+\usetheme{Madrid}
+%%\newfont{\bg}{cmr9 scaled\magstep4}
+
+
+%%\makeatletter
+
+%\theoremstyle{definition}
+%\newtheorem{theorem}{定理}
+%\newtheorem*{theorem*}{定理}
+%\newtheorem{definition}[theorem]{定義}
+%\newtheorem*{definition*}{定義}
+
+\begin{document}
+\title[Bayesian statistic]{Baysean statistic} 
+\author[Yudai Yamashita]{山下　雄大} 
+\institute[Hikari Power]{IT チーム} %% なるべく設定した方が良い
+\date{2022/3/16}
+
+\begin{frame} %% 
+\titlepage %% タイトルページ
+\end{frame}
+
+
+
+
+\begin{frame}
+\begin{remark}
+全2部か3部構成予定です。
+
+ハミルトニアンモンテカルロ法(マルコフ連鎖の一種 )を紹介する予定
+\end{remark}
+\begin{prob}
+・Reference\\
+基礎からのベイズ統計学$\hspace{1em}$ ハミルトニアンモンテカルロ法による実践的入門 \\
+豊田秀樹$\hspace{1em}$朝倉書店
+
+\end{prob}
+
+\end{frame}
+%%%%%-----------------------
+\begin{frame}
+\begin{dfn}[条件付き確率]
+Suppose observing A,the probability of observing B is ...
+$$p(B|A)= \displaystyle \frac{p(A,B)}{p(A)}$$
+\end{dfn}
+$p(A, B)$は$A$かつ$B$である確率
+\end{frame}
+\begin{frame}
+\begin{thm}[Bayesian Theorem]
+Try exchanging A with B,
+$$p(A|B)= \displaystyle \frac{p(A,B)}{p(B)}$$
+\begin{enumerate}
+\item  p(A,B) = p(A \mid B)p(B) \\ 
+\item  p(A,B) = p(B \mid A)p(A)　\\ 
+\end{enumerate}
+これより、
+$$p(A \mid B)=\frac{p(B | A)p(A)}{p(B)}$$
+が成り立つ
+
+\end{thm}
+
+\end{frame}
+\begin{frame}
+\begin{prob}
+At once, you may get a subtle fact.
+
+一見、当たり前のことを指しているのでは、と思う。
+\end{prob}
+ \begin{example}[検診問題]
+ある国で、病気Aは1万人あたり40人の割合でかかっていることが知られています。病気Aにかかっている人が検診Bを受けると8割の確率で陽性、健常な人が検診Bを受けると９割の確率で陰性となります・検診Bによって陽性と判定される場合、受診者が病気Aにかかっている確率はどれほどでしょう。
+
+In a country, set sick A ,which is on 40 persons per 10 thousand persons.
+ The One having A takes a diagnosis, named B and then being positive by 80 percent Probability. Either being negative by 90 percent.
+ 
+Some case puts "positive by B" prior,  How much is the probability which  says an examiner takes A? 
+
+\end{example}   
+\end{frame}
+%---------------------------------------------------------------
+\begin{frame}
+\begin{textblock*}{1\linewidth}(0pt, 0pt)
+\centering  \includegraphics[clip, width=4.5cm]{image843.png}
+\end{textblock*}　 
+
+\end{frame}
+\begin{frame}
+\begin{textblock*}{1\linewidth}(0pt, 0pt)
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|c}
+        事前(prior) &　事後(poster)  \\
+    ex p(A) or p(A^c)  &ex $p(A|B)$\\
+       P/N  & P/N \\
+       病気にかかっている(いない)確率&　陽性と診断されたときに本当に\\
+        & 病気の確率
+       
+    \end{tabular}
+    
+    \label{tab:my_label}
+\end{table}
+
+\end{textblock*}
+  \\
+  \\
+  \begin{textblock*}{1\linewidth}(10pt, 100pt)
+  Actually, Not until you come to a clinic/hospital ,then you do not find a real condition.\\
+  The effectivity of B is the correctness of the diagnosis.\\
+  By Statistics , you will view the useful.\\
+  In the case, $p(A|B)$ ,we want it.
+  With supplied indexes, we want to.
+  Indeed,prior values.
+  \\
+  Using Bayesian formula,we calculate it.\\
+  $p(B)=p(B|A)p(A)+p(B|A^c)p(A^c)$\\
+  $p(B)=0.8*0.4 percent + 0.1 * 99.6 percent$\\
+  $p(B)=13.16percent$\\
+  $p(B|A)p(A)=0.8 * 0.4 * 0.01= 0.032percent$
+  
+  
+  
+  
+  
+  \end{textblock*}
+\end{frame}
+\begin{frame}
+$$\displaystyle \frac{0.32}{10.28}\sim 0.031$$
+The examine conclusion is Positive ,you know ,though often even really negative. \\
+A is the cause, B is consequence.
+The ordinary idea brings with time series sequence.\\
+While, now, the calculation indicates inverse time series sequence. \\
+Roughly,getting the poster probability is Bayesian way.\\
+A little Strictly, prior probability is ,letting likelihood go, followed by poster probability. Then, you use Bayesian way.\\
+$p(B|A)$ is likelihood, $p(B)$ is 　
+marginal likelihood(周辺尤度)
+
+\end{frame}
+
+\begin{frame}
+    $$\mbox{事後確率}=\displaystyle \frac{(\mbox{尤度})×(\mbox{事前確率})}{\mbox{周辺尤度}}$$
+    \begin{prob}
+    $$p(A|C)={p(A\mid(B,C))}p((B,C)\mid C) =\displaystyle \frac{p(A,(B,C))}{p(B,C)}\frac{p(B,C))}{p(C)}$$
+    \end{prob}
+\end{frame}
+
+\begin{frame}
+\begin{textblock*}{1\linewidth}(0pt, 0pt)
+\centering  \includegraphics[clip, width=9cm]{20220316.PNG}
+\end{textblock*}　 
+
+\end{frame}
+\begin{frame}
+\begin{textblock*}{1\linewidth}(0pt, 0pt)
+\centering  \includegraphics[clip, width=9cm]{20220316_2.PNG}
+\end{textblock*}　 
+
+\end{frame}
+
+\begin{frame}
+\begin{prob}[ネクタイ問題]
+ある高校では、制服のネクタイが公式に3種類用意され、A-type, B-type, C-typeあるとし、初日は$0.6$, $0.25$, $0.15$の確率で着用して登校することが経験的に知られています。前の日に締めたネクタイ柄に基づいて、当日のネクタイ柄を決めます 。
+その対応を行列化した。分布はどうなっていくでしょうか。
+\end{prob}  
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|r|c|c|c}
+    & & today A & today B & today C  　\\ \hline
+    \multirow{3}{*} {yesterday} & A & 0.3 & 0.3 & 0.4  \\
+    & B & 0.1 & 0.5 & 0.4 \\
+      & C& 0.2 & 0.4 & 0.6 \\
+      
+    \end{tabular}
+    
+    \label{tab:my_label}
+\end{table}
+\end{frame}
+\begin{frame}
+左辺の条件付き確率が右式のようにあらわせる確率過程(Stochastic Process)をマルコフ課程という。
+$$p(X_t\mid X_{t-1}, X_{t-2}, \cdots, X_2, X_1)= p(X_t \mid X_{t-1})$$
+
+・フィッシャーをはじめ、長らくベイズ統計は非難の的であった。
+\end{frame}
+\begin{frame}
+\begin{prob}[Blood exam Problem]
+It is serious case.
+Murder case in Tokyo.
+culprit(犯人)'s blood in the spot.
+After examining this blood identity, fitting a man C's blood identity and feature in the town. Matching up ratio is one of 100 thousand.  It is high accuracy ratio. No evidence except this. How much is this probability that means C becomes the culprit?
+
+東京で殺人事件の犯人が見つかった。犯人の血液を照合すると高い精度でC氏であるとわかった。血液照合以外で確たる証拠はない。犯人である確率はどれくらいでしょう？
+\end{prob}  
+\end{frame}
+\begin{frame}
+\begin{prob}
+$$p(\mbox{犯人} \mid \mbox{一致})=\displaystyle \frac{p(\mbox{一致} \mid \mbox{犯人})p(\mbox{犯人})}{p(\mbox{犯人})+p(\mbox{一致} \mid not\mbox{犯人})p(not\mbox{犯人})}$$
+$p(\mbox{一致} \mid \mbox{犯人})$は１\\
+$$p(\mbox{犯人} \mid \mbox{一致})=\displaystyle \frac{p(\mbox{犯人})}{p(\mbox{犯人}+(1/10000)(1-p(\mbox{犯人}))}$$
+\end{prob}
+ ここで理由不十分(insufficient reason)のため、無理やり$p(\mbox{犯人})=1/2$とすると結果は$0.99999...$
+ 99.9percent、有罪確定となるが、反論はいくらでもあり例えばデータとしては$p(\mbox{犯人})=1/100000$, 改めて計算すると５０パーセント、東京に限らず新幹線などを使うと最終的に３７００万人に1人、犯人がいることになり計算すると0.27パーセント、このように事前分布は主観確率で定めると値がまばらになってしまう。
+ 
+\end{frame}
+\begin{frame}
+    $$p(A|B,C,D,E\cdots, H)= \displaystyle \frac{p(B, C, D,\cdots,H| A)p(A)}{p(B,C,D,\cdots,H)}$$
+    
+    このように客観的データを増やしfeatureを増やせば事後確率は安定します。
+    しかし、その分統計モデルが複雑になります。
+\end{frame}
+
+\end{document}
+
